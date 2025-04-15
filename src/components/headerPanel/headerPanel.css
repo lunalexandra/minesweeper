@@ -1,0 +1,50 @@
+.header-panel {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.available-flags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    background-color: #423f3f;
+    font-size: 24px;
+    color: var(--lightColor);
+    border: 1px solid var(--lightColor);
+    border-radius: 5px;
+}
+
+.buttons-box {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.header-btn {
+    width: 120px;
+    height: 40px; 
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 20px;
+    color: var(--lightColor);
+    border: 1px solid var(--lightColor);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background-color: #1aa196;
+    transition: all 0.1s ease;
+}
+
+.header-btn:hover {
+    cursor: pointer;
+    width: 122px;
+    margin-bottom: 1px;
+    height: 41px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.header-btn:active {
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.4);
+}

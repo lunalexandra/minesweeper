@@ -1,0 +1,8 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+  --lightColor: #cce1f5;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
