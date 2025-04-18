@@ -11,7 +11,7 @@ export const SettingsWindow = () => {
     dispatch(setLevel(level));
   };
 
-  const handleStartGameClick = () => {
+  const handleStartGame = () => {
     dispatch(startGame());
   };
 
@@ -25,25 +25,22 @@ export const SettingsWindow = () => {
     <>
       <div className="settings">
         <div className="title-wrp">
+          <h1 className="game-name">САПЁР 💣</h1>
           <h3 className="settings-title">ВЫБЕРИТЕ УРОВЕНЬ</h3>
         </div>
 
         <div className="levels">
           {levels.map((level) => (
             <div 
-              key={level} 
+              key={`settings-${level}`} 
               className={`level level-${level} ${currentLevel === level ? 'level-active' : ''}`} 
               onClick={() => handleSelectLevel(level)}
             >
               <p>{level === "simple" ? "Простой" : level === "medium" ? "Средний" : "Сложный"}</p>
-              <div className="level-details">
-                <div className="field-size">{level === "simple" ? "8 × 8" : level === "medium" ? "16 × 16" : "32 × 16"}</div>
-                <div className="total-mines">{level === "simple" ? "10 мин" : level === "medium" ? "40 мин" : "100 мин"}</div>
-              </div>
             </div>
           ))}
         </div>
-        <button type="button" className="play-btn" onClick={handleStartGameClick}>
+        <button type="button" className="play-btn" onClick={handleStartGame}>
           ИГРАТЬ
         </button>
       </div>

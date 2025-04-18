@@ -1,8 +1,8 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-import { GamePage, LeaderboardPage } from './pages';
-import { Layout } from './components/layout';
+import { GamePage, LeaderboardPage, NotFound } from './pages';
+import { Layout } from './components';
 import './App.css'
 
 export default function App() {
@@ -11,10 +11,10 @@ export default function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<GamePage />} />
         <Route path="/leaders" element={<LeaderboardPage />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Route>
     ),
-    { basename: '/Sapper' }
+    { basename: '/minesweeper' }
   );
 
   return (

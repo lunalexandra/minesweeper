@@ -26,9 +26,7 @@ export const Cell = ({
   adjacentMines,
 }: CellProps) => {
   const dispatch = useAppDispatch();
-  const currentLevel = useAppSelector((state) => state.game.currentLevel);
-  const hasWon = useAppSelector((state) => state.game.hasWon);
-  const hasLost = useAppSelector((state) => state.game.hasLost);
+  const { currentLevel, hasWon, hasLost} = useAppSelector((state) => state.game);
   const firstClick = useAppSelector((state) => state.field.firstClick);
 
   const handleClick = () => {
@@ -37,11 +35,11 @@ export const Cell = ({
         dispatch(addFirstClick(cellIndex));
         dispatch(generateField({ level: currentLevel }));
       }
-      dispatch(openCell(cellIndex));
+      dispatch(openCell({ index: cellIndex, forceOpen: isFlag }));
     }
+
     if (isMine) {
       dispatch(loseGame(true));
-      console.log("Проигрыш");
     }
   };
 
@@ -58,7 +56,7 @@ export const Cell = ({
       className={`cell 
         ${isOpen ? "open" : ""} 
         ${isMine && isOpen ? "mine" : ""} 
-        ${isFlag ? "flag" : ""} 
+        ${!isOpen && isFlag ? "flag" : ""} 
         ${isQuestionMark ? "question-mark" : ""}
         ${adjacentMines > 0 ? `adjacent-mines-${adjacentMines}` : ""}`}
       onClick={handleClick}

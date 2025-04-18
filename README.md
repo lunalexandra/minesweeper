@@ -1,50 +1,13 @@
-# React + TypeScript + Vite
+Игра Сапёр.
+Правила игры
+Игровое поле - прямоугольник из клеток. В момент начала игры все клетки "закрыты" - на них ничего нет. В момент начала игры мины проставляются случайным образом под клетки, не показываясь игроку.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Игрок может кликом левой кнопки мыши на любую закрытую клетку открыть ее, правила открытия клеток:
 
-Currently, two official plugins are available:
+Если в клетке мина, то игрок проигрывает.
+Если в соседних 8 клетках, граничащих с ней хотя бы углом, есть хоть одна мина, то клетка покажет число мин в этих клетках.
+Цифра должна иметь цвет, зависящий от числа мин вокруг: 1 — синяя, 2 — зелёная, 3 — красная, 4 — тёмно-синяя 5 — коричневая 6 — бирюзовая 7 — чёрная 8 — белая.
+Если первые два условия не выполнены, то клетка автоматически открывает все восемь клеток вокруг себя и остаются пустой. Так клетки открываться должны, пока не дойдут до границы игрового поля, либо не наткнутся на клетки, под которыми будут цифры.
+Игрок правой кнопкой мыши может поставить метку на закрытую клетку. Доступные метки: "флажок", "вопросик" и без метки, меняются циклически.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Если все поля либо открыты, либо помечены флажками, а на счетчике 0, то игрок побеждает.

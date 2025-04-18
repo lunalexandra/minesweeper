@@ -20,6 +20,7 @@ interface FieldState {
   firstCellIndex: number | undefined;
   flags: number;
   freeCells: number;
+  timeElapsed: number;
 }
 
 const initialState: FieldState = {
@@ -32,6 +33,7 @@ const initialState: FieldState = {
   firstCellIndex: undefined,
   flags: 0,
   freeCells: 64,
+  timeElapsed: 0,
 };
 
 const fieldSlice = createSlice({
@@ -42,10 +44,9 @@ const fieldSlice = createSlice({
       state.cells = [];
       state.isGenerated = false;
       state.firstClick = false;
-      console.log(`first click ${state.firstCellIndex}`);
       state.firstCellIndex = undefined;
-      console.log(`first click ${state.firstCellIndex}`);
       state.flags = 0;
+      state.timeElapsed = 0;
       state.freeCells = state.width * state.height;
     },
 
@@ -57,12 +58,11 @@ const fieldSlice = createSlice({
     ) {
       const { level } = action.payload;
       const config = getLevelConfig(level);
-      console.log(` generate ${state.firstCellIndex}`);
       const { width, height, mines } = config;
       const totalCells = width * height;
-      state.freeCells = state.width * state.height;
       state.width = width;
       state.height = height;
+      state.freeCells = state.width * state.height;
       state.totalMines = mines;
 
       const minePositions = new Set<number>();
@@ -104,11 +104,11 @@ const fieldSlice = createSlice({
       state.firstClick = true;
       state.firstCellIndex = action.payload;
     },
-    openCell(state, action: PayloadAction<number>) {
-      const index = action.payload;
+    openCell(state, action: PayloadAction<{index:number, forceOpen?: boolean }>) {
+      const { index, forceOpen } = action.payload;
       const revealCell = (i: number) => {
         const cell = state.cells[i];
-        if (!cell || cell.isOpen || cell.isFlag) return;
+        if (!cell || cell.isOpen || (!forceOpen && cell.isFlag)) return;
 
         cell.isOpen = true;
         cell.isFlag = false;
@@ -120,30 +120,41 @@ const fieldSlice = createSlice({
       };
 
       revealCell(index);
-      state.freeCells = state.cells.length - state.cells.filter(item => item.isOpen).length - state.flags;
-      console.log(state.freeCells)
+      state.freeCells =
+        state.cells.length -
+        state.cells.filter((item) => item.isOpen).length -
+        state.flags;
+      console.log(state.freeCells);
     },
 
     toggleMark(state, action: PayloadAction<number>) {
       const index = action.payload;
       const cell = state.cells[index];
-
+      const availableFlsgs = state.totalMines - state.flags;
       if (cell && !cell.isOpen) {
-        if (!cell.isFlag && !cell.isQuestionMark) {
+        if (!cell.isFlag && !cell.isQuestionMark && availableFlsgs > 0) {
           cell.isFlag = true;
           state.flags++;
-          console.log(`добавили флажок ${state.flags}`);
+          //console.log(`добавили флажок ${state.flags}`);
         } else if (cell.isFlag && !cell.isQuestionMark) {
           cell.isQuestionMark = true;
           cell.isFlag = false;
           state.flags--;
-          console.log(`убрали флажок ${state.flags}`);
+          //console.log(`убрали флажок ${state.flags}`);
         } else if (cell.isQuestionMark) {
           cell.isQuestionMark = false;
+        } else if (availableFlsgs === 0 && !cell.isQuestionMark) {
+          cell.isQuestionMark = true;
         }
       }
-      state.freeCells = state.cells.length - state.cells.filter(item => item.isOpen).length - state.flags;
-      console.log(state.freeCells)
+      state.freeCells =
+        state.cells.length -
+        state.cells.filter((item) => item.isOpen).length -
+        state.flags;
+      console.log(state.freeCells);
+    },
+    incrementTime(state) {
+      state.timeElapsed += 1;
     },
   },
 });
@@ -154,6 +165,7 @@ export const {
   openCell,
   toggleMark,
   addFirstClick,
+  incrementTime,
 } = fieldSlice.actions;
 
 export default fieldSlice.reducer;

@@ -7,6 +7,7 @@ interface GameState {
   hasLost: boolean;
 }
 
+
 const initialState: GameState = {
   isGameStarted: false,
   currentLevel: "simple",
@@ -38,8 +39,6 @@ const gameSlice = createSlice({
   },
 });
 
-export const { startGame, endGame, setLevel, loseGame, winGame } = gameSlice.actions;
-
-export const selectGameState = (state: { game: GameState }) => state.game;
+export const { startGame, endGame, setLevel, loseGame, winGame} = gameSlice.actions;
 
 export default gameSlice.reducer;

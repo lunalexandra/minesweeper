@@ -1,0 +1,53 @@
+.leaderboard-container {
+    width: 90%;
+    max-width: 400px;
+    min-height: 200px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #698db1;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(83, 117, 151, 0.4);
+    color: aliceblue;
+}
+
+.level-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+
+.level-buttons {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.level-button {
+    flex-grow: 1;
+    color: #fff;
+    height: 30px;
+    border: 1px solid #698db1;
+    background-color: rgba(83, 117, 151, 0.4);;
+    border-radius: 5px 5px 0 0;
+}
+
+.level-button.active {
+    background-color: transparent;
+    border-bottom: none;
+}
+
+.leaderboard-header {
+    display: flex;
+    color: rgb(127, 207, 228);
+    margin-bottom: 10px;
+}
+
+.column-width {
+    width: 100px;
+}
+
+.leaders-item {
+    display: flex;
+}
+

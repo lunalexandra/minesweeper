@@ -6,3 +6,7 @@
   --lightColor: #cce1f5;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+button:hover{
+  cursor: pointer;
+}

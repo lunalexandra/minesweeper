@@ -1,0 +1,12 @@
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    background-color: #423f3f;
+    font-size: 24px;
+    color: var(--lightColor);
+    border: 1px solid var(--lightColor);
+    border-radius: 5px;
+}

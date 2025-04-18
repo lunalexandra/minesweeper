@@ -32,3 +32,25 @@ export const getAdjacentIndices = (index: number, width: number, height: number)
         return { width: 8, height: 8, mines: 10 };
     }
   };
+
+  export const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60; 
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+  
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
+
+  export const saveTimeToLocalStorage = (level: "simple" | "medium" | "hard", time: number) => {
+    const existingTimes: number[] = JSON.parse(localStorage.getItem(`leaderboard_${level}`) || '[]');
+  
+    if (!Array.isArray(existingTimes) || !existingTimes.every(Number.isFinite)) {
+      existingTimes.length = 0;
+    }
+  
+    existingTimes.push(time);
+    existingTimes.sort((a: number, b: number) => a - b);
+    const topTimes = existingTimes.slice(0, 10);
+    localStorage.setItem(`leaderboard_${level}`, JSON.stringify(topTimes));
+  };
