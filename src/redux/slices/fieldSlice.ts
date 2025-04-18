@@ -104,11 +104,24 @@ const fieldSlice = createSlice({
       state.firstClick = true;
       state.firstCellIndex = action.payload;
     },
-    openCell(state, action: PayloadAction<{index:number, forceOpen?: boolean }>) {
+    openCell(
+      state,
+      action: PayloadAction<{ index: number; forceOpen?: boolean }>
+    ) {
       const { index, forceOpen } = action.payload;
       const revealCell = (i: number) => {
         const cell = state.cells[i];
-        if (!cell || cell.isOpen || (!forceOpen && cell.isFlag)) return;
+        if (!cell || cell.isOpen) {
+          return;
+        }
+        if (cell.isFlag) {
+          if (forceOpen) {
+            cell.isFlag = false;
+            state.flags--;
+          } else {
+            return;
+          }
+        }
 
         cell.isOpen = true;
         cell.isFlag = false;

@@ -9,7 +9,7 @@
 .modal {
   position: absolute;
   top: 30%;
-  left: calc(50% - 300px / 2);
+  left: calc(50% - 280px / 2);
   background-color: #fff;
   width: 280px;
   border: 1px solid #c4c4c4;
